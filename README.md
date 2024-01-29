@@ -33,13 +33,13 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 
 **Before doing anything within the project, make sure you have activated the venv folder**
 
-#### Using the Makefile/Batch file:
+#### Automatic-ish Approach:
 
 **For Windows:** After cloning, Windows users should run the `setup.bat` file to configure the environment:
 Right-click on `setup.bat` and select "Run as administrator" or in the terminal, type:
 `.\setup.bat` and press enter.
 
-**Install Xcode if you haven't already (Mac users)**: `xcode-select --install` in the terminal
+**Install Xcode if you haven't already (Mac users)**: `xcode-select --install` in the terminal if you want to use this approach
 
 **For Linux/Unix (Mac):** After cloning, Mac/Linux users should open a terminal in the project directory and run:
 `make setup`
