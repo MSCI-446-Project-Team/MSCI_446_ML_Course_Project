@@ -39,6 +39,8 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 Right-click on `setup.bat` and select "Run as administrator" or in the terminal, type:
 `.\setup.bat` and press enter.
 
+**Install Xcode if you haven't already (Mac users)**: `xcode-select --install` in the terminal
+
 **For Linux/Unix (Mac):** After cloning, Mac/Linux users should open a terminal in the project directory and run:
 `make setup`
 
