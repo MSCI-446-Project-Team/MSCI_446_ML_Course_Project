@@ -27,10 +27,9 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 **Make sure you have activated venv before doing any of the following steps or working on the project**
 
 4. `pip install -r requirements.txt`(installs dependencies from the requirements file to the venv)
-5.
-6. `pip freeze` (outputs list of all dependencies in the venv)
-7. `pip freeze > requirements.txt` (overrides old requirements.txt with new dependencies)
-8. If for what ever reason you have to deactivate the venv run: `deactivate`
+5. `pip freeze` (outputs list of all dependencies in the venv)
+6. `pip freeze > requirements.txt` (overrides old requirements.txt with new dependencies)
+7. If for what ever reason you have to deactivate the venv run: `deactivate`
 
 **Before doing anything within the project, make sure you have activated the venv folder**
 
