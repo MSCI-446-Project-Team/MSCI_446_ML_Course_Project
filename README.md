@@ -18,6 +18,8 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 
 ### Installing Dependencies and Virtual Environment
 
+#### Manual Approach:
+
 1. Install Python and pip (if you have not done so)
 2. `python -m venv venv` or `python3 -m venv venv` (creates virtual environment, this is done one time not every time)
 3. `source venv/bin/activate` (activates virtual environment)
@@ -31,6 +33,17 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 8. If for what ever reason you have to deactivate the venv run: `deactivate`
 
 **Before doing anything within the project, make sure you have activated the venv folder**
+
+#### Using the Makefile/Batch file:
+
+**For Windows:** After cloning, Windows users should run the `setup.bat` file to configure the environment:
+Right-click on `setup.bat` and select "Run as administrator" or in the terminal, type:
+`.\setup.bat` and press enter.
+
+**For Linux/Unix (Mac):** After cloning, Mac/Linux users should open a terminal in the project directory and run:
+`make setup`
+
+**Either way make sure the venv file in activated**
 
 ### `.env` Configuration
 
