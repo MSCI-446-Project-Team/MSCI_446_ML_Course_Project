@@ -22,7 +22,8 @@ Setup is fairly simple, follow the below steps to download all dependencies and 
 
 1. Install Python and pip (if you have not done so)
 2. `python -m venv venv` or `python3 -m venv venv` (creates virtual environment, this is done one time not every time)
-3. `source venv/bin/activate` (activates virtual environment)
+3. Mac: `source venv/bin/activate` (activates virtual environment)
+4. Windows: `.\venv\Scripts\activate` (activates virtual environment)
 
 **Make sure you have activated venv before doing any of the following steps or working on the project**
 
