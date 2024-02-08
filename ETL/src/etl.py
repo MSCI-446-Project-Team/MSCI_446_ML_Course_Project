@@ -11,7 +11,7 @@ class Etl_Tool():
     __cluster_uri = os.environ.get("MONGODB_URI")
     __omit_dict = {
         "Gen_Outages": ["forecast_execution_date_ept"],
-        "Historical_DA_Prices": ["row_is_current", "version_nbr", "datetime_beginning_utc"],
+        "Historical_DA_Prices": ["row_is_current", "version_nbr", "datetime_beginning_utc", "voltage", "equipment", "type"],
         "Load_Forecast": ["evaluated_at_utc", "forecast_hour_beginning_utc", "evaluated_at_ept"],
         "Solar_Forecast": ["datetime_beginning_utc"],
         "Wind_Forecast": ["datetime_beginning_utc"]
@@ -27,7 +27,7 @@ class Etl_Tool():
         Iterates through each subfolder and CSV file, applying a callback function to each CSV file.
 
         Args:
-            folder_path (str): Path to the folder containing subfolders with CSV files.
+            folder_path (str): Path to the folder containing sub-folders with CSV files.
         """
         for subdir in os.listdir(self.__root_directory):
             subdir_path = os.path.join(self.__root_directory, subdir)
@@ -47,7 +47,8 @@ class Etl_Tool():
             cur_omissions = self.__omit_dict[subdir]
 
             for csv_file in csv_files:
-                self.__etl_process(csv_file, cur_collection, cur_omissions)
+                self.__etl_process(csv_file, cur_collection,
+                                   cur_omissions, subdir)
 
     def iterate_over_folder(self, folder_name: str) -> None:
         """
@@ -72,7 +73,8 @@ class Etl_Tool():
         cur_omissions = self.__omit_dict[folder_name]
 
         for csv_file in csv_files:
-            self.__etl_process(csv_file, cur_collection, cur_omissions)
+            self.__etl_process(csv_file, cur_collection,
+                               cur_omissions, folder_name)
 
     def list_sub_folders(self):
         """Lists all subfolders in the root directory."""
@@ -133,7 +135,7 @@ class Etl_Tool():
                 return os.path.join(self.root_directory, folder_name)
         return ""
 
-    def __extract(self, csv_file_path: str, omissions: list) -> pd.DataFrame:
+    def __extract(self, csv_file_path: str, omissions: list, folder_name: str) -> pd.DataFrame:
         """
         Extracts data from a CSV file and removes specified columns.
 
@@ -149,6 +151,10 @@ class Etl_Tool():
 
         # Remove specified columns
         df.drop(columns=omissions, inplace=True, errors='ignore')
+
+        if folder_name == "Historical_DA_Prices":
+            print(f"filtering columns for: {folder_name}")
+            df = df[df.pnode_id == 49858]
 
         return df
 
@@ -180,7 +186,7 @@ class Etl_Tool():
         # Perform bulk insertion of the list of dictionaries into the MongoDB collection
         collection.insert_many(data_dicts)
 
-    def __etl_process(self, csv_file: str, collection: MongoClient, omissions: list) -> None:
+    def __etl_process(self, csv_file: str, collection: MongoClient, omissions: list, folder_name: str) -> None:
         """
         Performs the ETL (Extract, Transform, Load) process for a single CSV file.
 
@@ -193,7 +199,7 @@ class Etl_Tool():
             omissions (list): List of column names to be omitted from the DataFrame before processing.
         """
         # Extract data from the CSV file, omitting specified columns
-        data = self.__extract(csv_file, omissions)
+        data = self.__extract(csv_file, omissions, folder_name)
 
         # Transform the DataFrame into a list of dictionaries
         data_dicts = self.__transform(data)
