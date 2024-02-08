@@ -4,7 +4,7 @@ This Repository is dedicated to the development and completion of MSCI 446's (In
 
 - Quick setup
 - Git commands
-- [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+- Running ETL Script
 
 ## How do I get set up?
 
@@ -122,3 +122,75 @@ Then delete the branch, either from the Source control tab or from the terminal:
 `git branch -D "branch_name"`
 If you want to delete a branch from the remote repository:
 `git push --delete "remote_name branch_name"`
+
+# Running ETL Script With Driver
+
+The ETL script can be interacted with via the command line to perform various operations such as listing all available sub-folders within the specified root directory or processing data within a specific folder or across all folders. Below are the ways you can run the script depending on your requirements:
+
+## Listing All Sub-folders
+
+To list all available sub-folders in the root directory, use the `--list` option:
+`python ETL/src/etl.py --list`
+This command will output all sub-folders found in the root directory, for example:
+`Available sub-folders:
+Gen_Outages
+Historical_DA_Prices
+Load_Forecast
+Solar_Forecast
+Wind_Forecast`
+
+## Processing a Specific Folder
+
+If you wish to process CSV files within a specific folder, use the `-f` or `--folder` option followed by the name of the folder:
+`python ETL/src/etl.py --folder <Folder_Name>`
+For example:
+`python ETL/src/etl.py --folder Load_Forecast`
+This will execute the ETL process on CSV files located within the `Load_Forecast` subfolder, extracting data, transforming it, and loading it into the MongoDB collection named after the folder.
+
+## Processing All Folders
+
+To process all folders within the root directory, simply run the script without any options:
+`python ETL/src/etl.py --all`
+This triggers the script to process all sub-folders and their CSV files by default. Ensure the script's default behavior is set to process all folders if no specific folder is provided or no options are used.
+
+## Clearing All Collections in the DB
+
+To remove all documents from every collection in the MongoDB database without deleting the collections themselves, you can use the `--clear` option:
+
+`python ETL/src/etl.py --clear`
+
+This command will clear all documents from each collection within your MongoDB database. It's a powerful operation that makes your collections empty, so use it with caution. The script will output the name of each collection being cleared and confirm once all collections have been processed.
+
+For example, the output might look like this:
+
+`Clearing collection: Gen_Outages
+Clearing collection: Historical_DA_Prices
+Clearing collection: Load_Forecast
+Clearing collection: Solar_Forecast
+Clearing collection: Wind_Forecast
+All collections have been cleared.`
+
+**Important Note:** This operation will remove all existing data in the collections. Ensure you have backups or do not need the data before executing this command.
+
+## Listing All Collections in the Database
+
+To list all available collections within the MongoDB database, you can use the `--list-collections` option:
+`python ETL/src/etl.py --list-collections`
+This command will output all collections available in the database, allowing you to see the collections that you can clear or process individually.
+
+## Clearing a Specific Collection
+
+If you want to clear all documents from a specific collection within your MongoDB database, you can use the `--clear-collection` option followed by the name of the collection:
+
+`python ETL/src/etl.py --clear-collection <Collection_Name>`
+
+Replace `<Collection_Name>` with the actual name of the collection you wish to clear. This operation will remove all documents from the specified collection but will not delete the collection itself. Use this command with caution to avoid unintentional data loss.
+
+For example, to clear the Load_Forecast collection:
+`python ETL/src/etl.py --clear-collection Load_Forecast`
+
+This will clear all documents from the `Load_Forecast` collection and output a confirmation message:
+`Clearing collection: Load_Forecast
+Collection Load_Forecast has been cleared.`
+
+**Important Note:** Ensure you have backups or do not need the data before executing this command to avoid unintended data loss.
