@@ -42,7 +42,6 @@ def iterate_over_root(folder_path="ETL/Data") -> None:
 
         cur_omissions = omit_dict[subdir]
 
-        # Example: Print found CSV files
         for csv_file in csv_files:
             etl_process(csv_file, cur_collection, cur_omissions)
 
