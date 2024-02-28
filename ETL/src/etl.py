@@ -14,7 +14,8 @@ class Etl_Tool():
         "Historical_DA_Prices": ["row_is_current", "version_nbr", "datetime_beginning_utc", "voltage", "equipment", "type"],
         "Load_Forecast": ["evaluated_at_utc", "forecast_hour_beginning_utc", "evaluated_at_ept"],
         "Solar_Forecast": ["datetime_beginning_utc"],
-        "Wind_Forecast": ["datetime_beginning_utc"]
+        "Wind_Forecast": ["datetime_beginning_utc"],
+        "Gas_Prices": [""]
     }
 
     def __init__(self, root_directory="ETL/Data") -> object:
@@ -155,6 +156,32 @@ class Etl_Tool():
         if folder_name == "Historical_DA_Prices":
             print(f"filtering columns for: {folder_name}")
             df = df[df.pnode_id == 49858]
+
+        if folder_name == "Gas_Prices":
+            print(f"filtering columns for: {folder_name}")
+            # Convert 'Date' column to datetime format
+            df['Date'] = pd.to_datetime(
+                df['Date'], format='%b %d, %Y', errors='coerce')
+
+            # Sort the data by date just in case it's not sorted
+            df = df.sort_values('Date')
+
+            # Create a complete range of dates including weekends
+            all_dates = pd.date_range(
+                start=df['Date'].min(), end=df['Date'].max())
+
+            # Create a dataframe with all dates
+            full_date_df = pd.DataFrame(all_dates, columns=['Date'])
+
+            # Merge the full date dataframe with the original df
+            df = pd.merge(full_date_df, df, on='Date', how='left')
+
+            # Forward fill the prices for missing dates (weekends)
+            df['Henry Hub Natural Gas Spot Price (Dollars per Million Btu)'] = df[
+                'Henry Hub Natural Gas Spot Price (Dollars per Million Btu)'].ffill()
+
+            # Convert the 'Date' column back to a string format
+            df['Date'] = df['Date'].dt.strftime('%b %d, %Y')
 
         return df
 
