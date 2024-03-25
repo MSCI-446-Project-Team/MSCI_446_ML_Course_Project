@@ -1,3 +1,3 @@
 {
-  "python.analysis.extraPaths": ["./Models"]
+  "python.analysis.extraPaths": ["./Predictions/Models"]
 }
