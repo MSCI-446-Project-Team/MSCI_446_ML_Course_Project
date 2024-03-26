@@ -2,5 +2,4 @@ venv
 .env
 ETL/Data
 Data_Processing/Output
-Predictions/Data
 Final_table.csv
