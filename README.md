@@ -6,6 +6,7 @@ This Repository is dedicated to the development and completion of MSCI 446's (In
 - Git commands
 - Running ETL Script
 - Preprocessing
+- Models
 - Predictions
 
 ## How do I get set up?
@@ -201,6 +202,9 @@ Collection Load_Forecast has been cleared.`
 
 The preprocessing folder holds the notebook used to merge and normalize all datasets together into one dataset
 
+## Models
+Holds Neural Networks
+
 ## Predictions
 
-Holds notebooks for each type of ML model used (regressions, trees, and a neural network) as well as a folder called models that holds the Neural Network
+Holds notebooks for each type of ML model used (regressions, trees, and a neural network), it's train and test and scores.
