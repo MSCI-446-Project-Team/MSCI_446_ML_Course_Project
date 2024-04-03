@@ -5,10 +5,12 @@ This Repository is dedicated to the development and completion of MSCI 446's (In
 - Quick setup
 - Git commands
 - Running ETL Script
+- Preprocessing
+- Predictions
 
 ## How do I get set up?
 
-### Summary of setup
+### Summary of set up
 
 Setup is fairly simple, follow the below steps to download all dependencies and to configure anything needed onto your local machine
 
@@ -194,3 +196,11 @@ This will clear all documents from the `Load_Forecast` collection and output a c
 Collection Load_Forecast has been cleared.`
 
 **Important Note:** Ensure you have backups or do not need the data before executing this command to avoid unintended data loss.
+
+## Preprocessing
+
+The preprocessing folder holds the notebook used to merge and normalize all datasets together into one dataset
+
+## Predictions
+
+Holds notebooks for each type of ML model used (regressions, trees, and a neural network) as well as a folder called models that holds the Neural Network
