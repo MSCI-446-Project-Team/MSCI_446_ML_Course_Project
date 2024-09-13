@@ -2,12 +2,16 @@
 
 This Repository is dedicated to the development and completion of MSCI 446's (Intro to Machine Learning) course project.
 
+- Dataset
 - Quick setup
 - Git commands
 - Running ETL Script
 - Preprocessing
 - Models
 - Predictions
+
+## Dataset
+The dataset was created by us and can be found uploaded to Kaggle [here](https://www.kaggle.com/datasets/jeevanparmar03/nodal-price-prediction-msci-446).
 
 ## How do I get set up?
 
